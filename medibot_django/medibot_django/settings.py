@@ -26,7 +26,7 @@ CLERK_SECRET_KEY='sk_test_sAKNsiEv8PpooxBXuo7aPgHanaf9NYshwJ1xdfGfeY'
 CLERK_JWT_KEY='https://ethical-termite-7.clerk.accounts.dev/.well-known/jwks.json'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
