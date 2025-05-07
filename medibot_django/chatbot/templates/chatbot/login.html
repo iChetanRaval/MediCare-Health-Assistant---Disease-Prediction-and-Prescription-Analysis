@@ -1,0 +1,298 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - MediBot</title>
+    <style>
+        /* Same CSS as signup.html */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f9fafc, #dde5f4);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            text-align: center;
+        }
+        h2 {
+            background: linear-gradient(90deg, #007bff, #00c4ff);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: #f0f2f5;
+            outline: none;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #007bff, #00c4ff);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        button:hover {
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+        .error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Log In</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <p><a href="{% url 'signup' %}">Don’t have an account? Sign up</a></p>
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+
+{% comment %} login page {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - MediCare</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f9fafc, #dde5f4);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            text-align: center;
+        }
+        h2 {
+            background: linear-gradient(90deg, #007bff, #00c4ff);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            position: relative;
+        }
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: #f0f2f5;
+            outline: none;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+            color: #007bff;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #007bff, #00c4ff);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        button:hover {
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+        .error {
+            background: #dc3545;
+            color: white;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .user-type-radio {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .user-type-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .user-type-option input {
+            width: auto;
+            margin-right: 5px;
+        }
+        /* New style for doctor ID field */
+        #doctor-id-group {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Log In</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="user-type-radio">
+                <label class="user-type-option">
+                    <input type="radio" name="login_user_type" value="patient" checked onclick="toggleDoctorIdField()"> Patient
+                </label>
+                <label class="user-type-option">
+                    <input type="radio" name="login_user_type" value="doctor" onclick="toggleDoctorIdField()"> Doctor
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autofocus>
+            </div>
+            <div class="form-group password-container">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <span class="toggle-password" onclick="togglePassword()">Show</span>
+            </div>
+            <!-- Doctor ID field (hidden by default) -->
+            <div class="form-group" id="doctor-id-group">
+                <label for="doctor_id">Doctor ID</label>
+                <input type="text" id="doctor_id" name="doctor_id" placeholder="Enter your doctor ID">
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <p><a href="{% url 'signup' %}">Don't have an account? Sign up</a></p>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var toggleButton = document.querySelector(".toggle-password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "Show";
+            }
+        }
+
+        function toggleDoctorIdField() {
+            const doctorRadio = document.querySelector('input[name="login_user_type"][value="doctor"]');
+            const doctorIdGroup = document.getElementById("doctor-id-group");
+            
+            if (doctorRadio.checked) {
+                doctorIdGroup.style.display = "block";
+                document.getElementById("doctor_id").setAttribute("required", "");
+            } else {
+                doctorIdGroup.style.display = "none";
+                document.getElementById("doctor_id").removeAttribute("required");
+            }
+        }
+
+        // Show doctor ID field if there was an error and doctor was selected
+        document.addEventListener('DOMContentLoaded', function() {
+            const doctorRadio = document.querySelector('input[name="login_user_type"][value="doctor"]');
+            {% if show_doctor_id %}
+                doctorRadio.checked = true;
+                toggleDoctorIdField();
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

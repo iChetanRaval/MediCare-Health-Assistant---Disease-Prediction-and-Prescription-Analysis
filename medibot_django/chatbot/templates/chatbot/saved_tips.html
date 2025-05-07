@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Health Tips | MediCare</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
+            --secondary: #f8f9fa;
+            --accent: #f72585;
+            --text: #2b2d42;
+            --light-text: #94a3b8;
+            --border-color: #e9ecef;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #ef233c;
+            --info: #560bad;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-title {
+            color: var(--primary-dark);
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title .material-icons {
+            font-size: 2.2rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        /* Cards Layout */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-icon {
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .card-content {
+            padding: 20px;
+            color: var(--text);
+        }
+
+        .card-footer {
+            padding: 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-top: 30px;
+        }
+        
+        .empty-state h3 {
+            margin: 15px 0 10px;
+            color: var(--primary-dark);
+        }
+        
+        .empty-state p {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .text-muted {
+            color: var(--light-text);
+            font-size: 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="navbar">
+        <a href="/" class="navbar-brand">
+            <span class="material-icons">medical_services</span>
+            MediCare
+        </a>
+        <div class="nav-links">
+            <a href="/dashboard/" class="nav-link">
+                <span class="material-icons">home</span>
+                Home
+            </a>
+            <a href="/health-tips/" class="nav-link">
+                <span class="material-icons">lightbulb</span>
+                Health Tips
+            </a>
+            <a href="/saved-tips/" class="nav-link">
+                <span class="material-icons">bookmark</span>
+                Saved Tips
+            </a>
+            <a href="/logout/" class="nav-link">
+                <span class="material-icons">logout</span>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                <span class="material-icons">bookmark</span>
+                My Saved Health Tips
+            </h1>
+            <a href="/health-tips/" class="btn btn-outline">
+                <span class="material-icons">arrow_back</span>
+                Back to All Tips
+            </a>
+        </div>
+
+        {% if saved_tips %}
+        <div class="cards-grid">
+            {% for saved_tip in saved_tips %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <span class="material-icons">{{ saved_tip.tip.category.icon }}</span>
+                    </div>
+                    <h2 class="card-title">{{ saved_tip.tip.title }}</h2>
+                </div>
+                <p class="card-content">{{ saved_tip.tip.content }}</p>
+                <div class="card-footer">
+                    <span class="text-muted">
+                        Saved on {{ saved_tip.saved_at|date:"M d, Y" }}
+                    </span>
+                    <button class="btn btn-outline btn-sm save-tip-btn" 
+                            data-tip-id="{{ saved_tip.tip.id }}"
+                            onclick="saveTip({{ saved_tip.tip.id }}, this, true)">
+                        <span class="material-icons">bookmark</span>
+                        Remove
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <span class="material-icons" style="font-size: 60px; color: #ccc;">bookmark_border</span>
+            <h3>No saved tips yet</h3>
+            <p>Save interesting health tips to view them here later</p>
+            <a href="/health-tips/" class="btn btn-primary">
+                <span class="material-icons">lightbulb</span>
+                Browse Health Tips
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Save/remove tip functionality
+        function saveTip(tipId, element, isSavedPage = false) {
+            fetch(`/save-tip/${tipId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'saved') {
+                    if (isSavedPage) {
+                        // On saved tips page, remove the card after unsaving
+                        element.closest('.card').remove();
+                        // Check if we need to show empty state
+                        if (document.querySelectorAll('.card').length === 0) {
+                            showEmptyState();
+                        }
+                    } else {
+                        element.innerHTML = '<span class="material-icons">bookmark</span> Saved';
+                    }
+                    showToast('Tip saved to your collection');
+                } else {
+                    if (isSavedPage) {
+                        // On saved tips page, remove the card after unsaving
+                        element.closest('.card').remove();
+                        // Check if we need to show empty state
+                        if (document.querySelectorAll('.card').length === 0) {
+                            showEmptyState();
+                        }
+                    } else {
+                        element.innerHTML = '<span class="material-icons">bookmark_border</span> Save';
+                    }
+                    showToast('Tip removed from saved');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Error saving tip');
+            });
+        }
+
+        // Show empty state when no saved tips remain
+        function showEmptyState() {
+            const emptyStateHTML = `
+                <div class="empty-state">
+                    <span class="material-icons" style="font-size: 60px; color: #ccc;">bookmark_border</span>
+                    <h3>No saved tips yet</h3>
+                    <p>Save interesting health tips to view them here later</p>
+                    <a href="/health-tips/" class="btn btn-primary">
+                        <span class="material-icons">lightbulb</span>
+                        Browse Health Tips
+                    </a>
+                </div>
+            `;
+            document.querySelector('.cards-grid').innerHTML = emptyStateHTML;
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+
+    <style>
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            z-index: 1000;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    container_name: medibot_django_web
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: medibot_redis
+    restart: always
