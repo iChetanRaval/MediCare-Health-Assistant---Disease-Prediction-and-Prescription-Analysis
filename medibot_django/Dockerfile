@@ -1,4 +1,3 @@
-# Python Django Application Dockerfile
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -12,6 +11,7 @@ RUN apt-get update && \
     libpq-dev \
     libjpeg-dev \
     zlib1g-dev \
+    ffmpeg \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -24,7 +24,6 @@ COPY . .
 RUN mkdir -p /app/media /app/static /app/data && \
     chmod -R 755 /app/media /app/static
 
-# Create entrypoint.sh to run migrations and then start the server
 RUN echo '#!/bin/sh\n\
     python manage.py migrate --noinput\n\
     python manage.py collectstatic --noinput\n\
@@ -33,4 +32,4 @@ RUN echo '#!/bin/sh\n\
 EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
